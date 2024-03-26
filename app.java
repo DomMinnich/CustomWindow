@@ -1,3 +1,4 @@
+import javafx.animation.RotateTransition;
 import javafx.animation.ScaleTransition;
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -85,14 +86,44 @@ public class app extends Application {
         Button button = new Button(text);
         button.setStyle("-fx-background-color: #666; -fx-text-fill: #fff; -fx-font-size: 18;");
         button.setPrefSize(40, 40);
+
+        // Create a ScaleTransition
+        ScaleTransition st = new ScaleTransition(Duration.millis(300), button);
+        st.setByX(0.15); // Increase the width by 15%
+        st.setByY(0.15); // Increase the height by 15%
+        st.setCycleCount(2); // The animation will play twice
+        st.setAutoReverse(true); // The animation will play in reverse for the second play
+
+        // Create shrinkTransition
+        ScaleTransition shrinkTransition = new ScaleTransition(Duration.millis(300), button);
+        shrinkTransition.setByX(-0.25); // Decrease the width by 15%
+        shrinkTransition.setByY(-0.25); // Decrease the height by 15%
+        shrinkTransition.setCycleCount(2); // The animation will play twice
+        shrinkTransition.setAutoReverse(true); // The animation will play in reverse for the second play
+
+        // Create a RotateTransition
+        RotateTransition rt = new RotateTransition(Duration.millis(100), button);
+        rt.setByAngle(10); // Rotate by 10 degrees
+        rt.setCycleCount(4); // The animation will play 4 times
+        rt.setAutoReverse(true); // The animation will play in reverse for the second and fourth plays
+
+        // Set the onMouseEntered and onMouseExited events
         button.setOnMouseEntered(e -> {
             button.setScaleX(1.1);
             button.setScaleY(1.1);
+            if (text.equals("[]")) { // Only play the scale animation for the maximize button
+                st.play();
+            } else if (text.equals("X")) { // Only play the rotate animation for the exit button
+                rt.play();
+            } else {
+                shrinkTransition.play();
+            }
         });
         button.setOnMouseExited(e -> {
             button.setScaleX(1.0);
             button.setScaleY(1.0);
         });
+
         return button;
     }
 
