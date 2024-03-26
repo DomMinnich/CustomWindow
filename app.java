@@ -4,11 +4,13 @@ import javafx.geometry.Insets;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -26,6 +28,17 @@ public class app extends Application {
 
         BorderPane root = new BorderPane();
         root.setStyle("-fx-background-color: #333;");
+
+        // Create a new label
+        Label label = new Label("Label label Label");
+        label.setStyle("-fx-text-fill: #fff; -fx-font-size: 18;");
+
+        // Wrap the label in an HBox
+        HBox labelContainer = new HBox(label);
+        labelContainer.setPadding(new Insets(10)); // Add some padding
+
+        // Add the label to the center of the root pane
+        root.setCenter(labelContainer);
 
         // Creating a VBox for the navigation bar
         VBox navBar = new VBox();
@@ -50,7 +63,6 @@ public class app extends Application {
         // Setting the navigation bar on the left side
         root.setLeft(navBar);
 
-       
         // Making the application draggable using the navigation bar
         navBar.setOnMousePressed(event -> {
             xOffset = event.getSceneX();
