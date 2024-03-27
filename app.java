@@ -1,17 +1,12 @@
-import javafx.animation.RotateTransition;
 import javafx.animation.ScaleTransition;
 import javafx.application.Application;
 import javafx.geometry.Insets;
-import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -30,38 +25,22 @@ public class app extends Application {
         BorderPane root = new BorderPane();
         root.setStyle("-fx-background-color: #333;");
 
-        // Create a new label
-        Label label = new Label("Label label Label");
-        label.setStyle("-fx-text-fill: #fff; -fx-font-size: 18;");
+        VBox navBar = new VBox(); // Navigation bar
+        navBar.setStyle("-fx-background-color: #555;"); // Background color
+        navBar.setEffect(new DropShadow(10, Color.rgb(0, 255, 255, 1))); // Neon light blue color
 
-        // Wrap the label in an HBox
-        HBox labelContainer = new HBox(label);
-        labelContainer.setPadding(new Insets(10)); // Add some padding
-
-        // Add the label to the center of the root pane
-        root.setCenter(labelContainer);
-
-        // Creating a VBox for the navigation bar
-        VBox navBar = new VBox();
-        navBar.setPadding(new Insets(10));
-        navBar.setSpacing(10);
-        navBar.setStyle("-fx-background-color: #555;");
-        navBar.setEffect(new DropShadow(10, Color.BLACK));
 
         // Custom window controls
-        Button minimizeButton = createButton("-");
-        Button maximizeButton = createButton("[]");
-        Button closeButton = createButton("X");
+        Button minimizeButton = createButton("Minimize2.png");
+        Button maximizeButton = createButton("Maximize2.png");
+        Button closeButton = createButton("Xout2.png");
 
         // Handling actions for window controls
         minimizeButton.setOnAction(e -> primaryStage.setIconified(true));
         maximizeButton.setOnAction(e -> primaryStage.setMaximized(!primaryStage.isMaximized()));
         closeButton.setOnAction(e -> primaryStage.close());
 
-        // Adding window controls to the navigation bar
         navBar.getChildren().addAll(minimizeButton, maximizeButton, closeButton);
-
-        // Setting the navigation bar on the left side
         root.setLeft(navBar);
 
         // Making the application draggable using the navigation bar
@@ -82,46 +61,29 @@ public class app extends Application {
         primaryStage.show();
     }
 
-    private Button createButton(String text) {
-        Button button = new Button(text);
-        button.setStyle("-fx-background-color: #666; -fx-text-fill: #fff; -fx-font-size: 18;");
-        button.setPrefSize(40, 40);
+    private Button createButton(String imageName) {
+        Image image = new Image(getClass().getResourceAsStream(imageName));
+        ImageView imageView = new ImageView(image);
+        imageView.setFitWidth(40);
+        imageView.setFitHeight(40);
 
-        // Create a ScaleTransition
-        ScaleTransition st = new ScaleTransition(Duration.millis(300), button);
-        st.setByX(0.15); // Increase the width by 15%
-        st.setByY(0.15); // Increase the height by 15%
-        st.setCycleCount(2); // The animation will play twice
-        st.setAutoReverse(true); // The animation will play in reverse for the second play
+        Button button = new Button();
+        button.setGraphic(imageView);
+        button.setStyle("-fx-background-color: transparent;");
 
-        // Create shrinkTransition
-        ScaleTransition shrinkTransition = new ScaleTransition(Duration.millis(300), button);
-        shrinkTransition.setByX(-0.25); // Decrease the width by 15%
-        shrinkTransition.setByY(-0.25); // Decrease the height by 15%
-        shrinkTransition.setCycleCount(2); // The animation will play twice
-        shrinkTransition.setAutoReverse(true); // The animation will play in reverse for the second play
+        // Apply hover animation
+        ScaleTransition scaleInTransition = new ScaleTransition(Duration.millis(100), imageView);
+        scaleInTransition.setToX(1.2);
+        scaleInTransition.setToY(1.2);
 
-        // Create a RotateTransition
-        RotateTransition rt = new RotateTransition(Duration.millis(100), button);
-        rt.setByAngle(10); // Rotate by 10 degrees
-        rt.setCycleCount(4); // The animation will play 4 times
-        rt.setAutoReverse(true); // The animation will play in reverse for the second and fourth plays
+        ScaleTransition scaleOutTransition = new ScaleTransition(Duration.millis(100), imageView);
+        scaleOutTransition.setToX(1.0);
+        scaleOutTransition.setToY(1.0);
 
-        // Set the onMouseEntered and onMouseExited events
-        button.setOnMouseEntered(e -> {
-            button.setScaleX(1.1);
-            button.setScaleY(1.1);
-            if (text.equals("[]")) { // Only play the scale animation for the maximize button
-                st.play();
-            } else if (text.equals("X")) { // Only play the rotate animation for the exit button
-                rt.play();
-            } else {
-                shrinkTransition.play();
-            }
-        });
+        button.setOnMouseEntered(e -> scaleInTransition.playFromStart());
         button.setOnMouseExited(e -> {
-            button.setScaleX(1.0);
-            button.setScaleY(1.0);
+            scaleOutTransition.stop();
+            scaleOutTransition.playFromStart();
         });
 
         return button;
