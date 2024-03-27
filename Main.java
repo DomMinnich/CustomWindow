@@ -101,7 +101,7 @@ public class Main extends Application {
             System.out.println("Registered");
         });
         Label registerLabel = new Label("Register");
-        registerLabel.setStyle("-fx-text-fill: white;");
+        registerLabel.setStyle("-fx-text-fill: white; -fx-font-size: 20px;"); //
         registerPage.getChildren().addAll(registerLabel, usernameField, passwordField, registerButton);
         return registerPage;
     }
@@ -133,7 +133,7 @@ public class Main extends Application {
             }
         });
         Label loginLabel = new Label("Login");
-        loginLabel.setStyle("-fx-text-fill: white;");
+        loginLabel.setStyle("-fx-text-fill: white; -fx-font-size: 20px;");
         loginPage.getChildren().addAll(loginLabel, loginUsernameField, loginPasswordField, loginButton);
         return loginPage;
     }
@@ -142,7 +142,7 @@ public class Main extends Application {
         VBox homePage = new VBox();
         homePage.setStyle("-fx-background-color: #2c3e50; -fx-padding: 20;");
         Label homeLabel = new Label("Home");
-        homeLabel.setStyle("-fx-text-fill: white;");
+        homeLabel.setStyle("-fx-text-fill: white; -fx-font-size: 20px;");
         homePage.getChildren().addAll(homeLabel);
         return homePage;
     }
