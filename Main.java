@@ -2,7 +2,6 @@ import javafx.animation.ScaleTransition;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
@@ -28,6 +27,8 @@ public class Main extends Application {
 
         VBox navBar = new VBox();
         navBar.setStyle("-fx-background-color: #1e2d45; -fx-border-color: #FFCA87; -fx-border-width: 0 1 0 0;");
+        navBar.setMinWidth(55);
+        navBar.setMaxWidth(55);
 
         Button closeButton = CustomButton.createButton("/Icons/Close_icons/Xout3.png");
         Button maximizeButton = CustomButton.createButton("/Icons/Maximize_icons/Maximize3.png");
