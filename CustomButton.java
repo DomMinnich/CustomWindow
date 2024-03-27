@@ -1,3 +1,14 @@
+// Dominic Minnich 2024
+// Simple custom window with navigation bar and pages
+// Getting rid of default window decorations
+
+  //  CustomButton.java  //
+//Imports
+//Custom Button
+//Main
+
+
+
 import javafx.animation.ScaleTransition;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;

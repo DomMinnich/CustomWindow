@@ -1,3 +1,21 @@
+// Dominic Minnich 2024
+// Simple custom window with navigation bar and pages
+// Getting rid of default window decorations
+
+  //  Main.java  //
+//Imports
+//Vbox navBar
+//Nav Buttons
+//Drag window event
+//Create Register Page
+//Create Login Page
+//Create Home Page
+//Valid User
+//Create Button
+//Create Navigation Button
+//Main
+
+
 import javafx.animation.ScaleTransition;
 import javafx.application.Application;
 import javafx.scene.Scene;
